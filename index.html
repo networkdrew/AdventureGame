@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber-Zombie Apocalypse</title>
+    <style>
+        body {
+            margin: 0;
+            background: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        canvas {
+            display: block;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+    </div>
+
+    <!-- Scripts: correct order (map → zombie → player → bullet → game) -->
+    <script src="src/map.js"></script>
+    <script src="src/zombie.js"></script>
+    <script src="src/player.js"></script>
+    <script src="src/bullet.js"></script>
+    <script src="src/pickup.js"></script>
+    <script src="src/npc.js"></script>
+    <script src="src/game.js"></script>
+</body>
+</html>
