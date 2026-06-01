@@ -1,15 +1,14 @@
-// src/bullet.js – Projectile with custom damage, color, and trajectory
 class Bullet {
-    constructor(x, y, angle, damage, canvasWidth, canvasHeight, color = '#ffff00') {
+    constructor(x, y, angle, damage, mapWidth, mapHeight, color = '#ffff00') {
         this.x = x;
         this.y = y;
         this.damage = damage;
-        this.speed = 600;
+        this.speed = 750; // Boosted velocity for snappier responses
         this.size = 4;
         this.vx = Math.cos(angle) * this.speed;
         this.vy = Math.sin(angle) * this.speed;
-        this.canvasWidth = canvasWidth;
-        this.canvasHeight = canvasHeight;
+        this.mapWidth = mapWidth;
+        this.mapHeight = mapHeight;
         this.isDead = false;
         this.color = color;
     }
@@ -18,19 +17,20 @@ class Bullet {
         this.x += this.vx * deltaTime;
         this.y += this.vy * deltaTime;
 
-        if (this.x < 0 || this.x > this.canvasWidth ||
-            this.y < 0 || this.y > this.canvasHeight) {
+        // Boundary checks against complete world limits
+        if (this.x < 0 || this.x > this.mapWidth || this.y < 0 || this.y > this.mapHeight) {
             this.isDead = true;
             return;
         }
 
-        if (map.isWallAtPosition(this.x, this.y)) {
+        // FIXED: Replaced non-existent isWallAtPosition with verified isWallAtWorldPos
+        if (map.isWallAtWorldPos(this.x, this.y)) {
             this.isDead = true;
         }
     }
 
     draw(ctx) {
         ctx.fillStyle = this.color;
-        ctx.fillRect(this.x - this.size/2, this.y - this.size/2, this.size, this.size);
+        ctx.fillRect(this.x - this.size / 2, this.y / 2, this.size, this.size);
     }
 }
